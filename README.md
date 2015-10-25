@@ -1,9 +1,7 @@
 # ToolBox
 Collection of useful tools and tricks for competitive programming
 
-##Maths
-
-###Modular Exponentiation
+##Modular Exponentiation
 
 ```c++
 int modPow(long long b, long long e, int m) {
@@ -13,7 +11,8 @@ int modPow(long long b, long long e, int m) {
 }
 ````
 
-###Modular Multiplicative Inverse
+##Modular Multiplicative Inverse
+
 
 ```c++
 void extEuclid(int a, int b, int &x, int &y, int &gcd) {
@@ -33,3 +32,28 @@ int modInv(int n, int m) {
     if (gcd == 1) return x % m;
     return 0;
 }
+
+```
+
+###Example
+```
+Answer = SumDiv( 36^30 ) % MOD                      // Where MOD = 1,000,000,007
+
+A = SumDiv( (2^2 * 3^2) ^ 30 ) % MOD                // Prime factorization of 36
+A = SumDiv( 2^60 * 3^60 ) % MOD                     // Exponent rule
+A = ( (2^61 - 1) / 1 ) * ( (3^61 - 1) / 2 ) % MOD   // Sum of divisors
+
+// At this point, using modular arithmetic brings us to the answer
+
+A = ( ( (2^61 - 1) / 1 ) % MOD ) *  ( ( (3^61 - 1) / 2 ) % MOD ) % MOD
+
+A =   ( (2^61 - 1) % MOD ) * ( 1^-1 ) % MOD
+    * ( (3^61 - 1) % MOD ) * ( 2^-1 ) % MOD
+    % MOD
+    
+// Where x^-1 is the MMI of x, modulo MOD
+
+A =   ( ( modPow(2, 61, MOD) - 1 ) % MOD * modInv(1, MOD) ) % MOD
+    * ( ( modPow(3, 61, MOD) - 1 ) % MOD * modInv(2, MOD) ) % MOD
+    % MOD
+```
